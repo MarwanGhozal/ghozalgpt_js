@@ -1,7 +1,3 @@
-```sql
--- init.sql 
--- GhozalGPT database schema 
-
 CREATE TABLE IF NOT EXISTS conversations {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL
