@@ -46,23 +46,30 @@ The original project included a `start-ghozal-ai.bat` file for launching everyth
 
 ```bat
 @echo off
-title GhozalGPT Launcher
-echo Starting Ollama...
-start "" ollama serve
+title Starting GhozalGPT - Local Server
 
-echo Waiting for Ollama to be ready...
-timeout /t 3 /nobreak >nul
+:: Start Ollama model
+echo Starting Ollama model...
+start cmd /k "ollama run llama3:instruct"
 
-echo Starting GhozalGPT backend...
-cd /d "%~dp0"
-start "" cmd /k "npm start"
+:: Wait a bit for Ollama to start
+timeout /t 10 /nobreak >nul
 
-echo Waiting for backend...
-timeout /t 2 /nobreak >nul
+:: Start Node.js server
+echo Starting backend server...
+start cmd /k "node server.js"
 
-echo Opening GhozalGPT...
-start "" index.html
-```
+:: OPTIONAL: Initialize SQLite if database file doesn't exist
+:: (Uncomment if you want to auto-create db schema once)
+if not exist ghozalgpt.db (
+	echo Initializing SQLite database...
+	sqlite3 ghozalgpt.db < init.sql
+)
+
+:: Launch the front-end in browser (index.html directly)
+echo Opening GhozalGPT UI...
+start "" "index.html"
+
 
 ---
 
@@ -75,3 +82,4 @@ start "" index.html
 | Model not found error         | LLaMA 3 not pulled   | Run `ollama pull llama3:instruct`                            |
 | Slow responses                | Running on CPU       | Normal — LLaMA 3 is large. GPU speeds this up significantly. |
 | CORS error in console         | Backend not running  | Run `npm start` first                                        |
+```
