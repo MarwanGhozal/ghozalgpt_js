@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GhozalGPT</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Orbitron:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Inside your <head> -->
+    <link rel="icon" type="image/png" href="logo/favicon.ico" />
+  </head>
+  <body>
+    <!-- Matrix + Overlay (optional, uncomment if needed) -->
+    <canvas id="matrix"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="floating-sidebar">
+      <!-- <canvas id="hieroglyph-canvas"></canvas> -->
+      <img src="logo/gPharaoh2.png" class="pharaoh-logo" />
+      <div class="pharaoh-label">Ancient Mind, Future Code</div>
+      <h3>Conversations</h3>
+      <ul id="convo-list"></ul>
+      <!-- This is where JS will inject conversations -->
+      <div class="new-button-wrapper">
+        <button class="new-button" onclick="createNewConversation()">
+          + New
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Area -->
+    <main class="chat-area">
+      <div class="header">
+        <div class="text-logo">GhozalGPT</div>
+      </div>
+      <div id="model-label">Version: 0.1 <br />Model: llama3</div>
+
+      <!-- <img src="logo/gPharaoh.png" class="pharaoh-logo" alt="Pharaoh Logo" /> -->
+
+      <!-- <h2 id="chat-title">Talk to GhozalGPT</h2> -->
+
+      <div id="chat-box">
+        <div><strong>GhozalGPT:</strong> Hello, how can I help you today?</div>
+      </div>
+
+      <div class="input-wrapper">
+        <textarea
+          id="user-input"
+          placeholder='Ask me anything... (use "Refer to" or "remember when" to reference past chats)'
+        ></textarea>
+
+        <button class="new-button" onclick="sendMessage()">Send</button>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const userInput = document.getElementById("user-input");
+        userInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+          }
+        });
+      });
+    </script>
+    <script src="matrix.js"></script>
+  </body>
+</html>
