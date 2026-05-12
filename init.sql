@@ -1,0 +1,18 @@
+```sql
+-- init.sql 
+-- GhozalGPT database schema 
+
+CREATE TABLE IF NOT EXISTS conversations {
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    last_message_at DATETIME,
+    }
+
+CREATE TABLE IF NOT EXISTS messages {
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    conversation_id INTEGER NOT NULL,
+    sender TEXT NOT NULL,
+    message TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+}
