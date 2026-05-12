@@ -1,3 +1,5 @@
+## GhozalGPT v0.1 — a self-hosted AI assistant platform designed for privacy, speed, and control.
+
 ## 🚀 Local Deployment
 
 ### Step 1 — Start Ollama
