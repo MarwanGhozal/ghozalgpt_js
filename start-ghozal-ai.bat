@@ -14,9 +14,9 @@ start cmd /k "node server.js"
 
 :: OPTIONAL: Initialize SQLite if database file doesn't exist
 :: (Uncomment if you want to auto-create db schema once)
-if not exist ghozal_ai.db (
+if not exist ghozalgpt.db (
 	echo Initializing SQLite database...
-	sqlite3 ghozal_ai.db < init.sql
+	sqlite3 ghozalgpt.db < init.sql
 )
 
 :: Launch the front-end in browser (index.html directly)

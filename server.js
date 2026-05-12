@@ -57,6 +57,8 @@ app.get("/conversations", async (req, res) => {
     .prepare("SELECT * FROM conversations ORDER BY last_message_at DESC")
     .all();
 
+  const msgRows = db.prepare("SELECT * FROM messages").all();
+
   convoRows.forEach((convo) => {
     conversations[convo.id] = {
       name: convo.name,
@@ -109,7 +111,7 @@ app.post("/chat", async (req, res) => {
     .map((entry) => `${entry.sender}: ${entry.message}`)
     .join("\n");
 
-  const injectMemory = wantsReference || shouldInjectMemory(message);
+  const injectMemory = wantsReference || shouldInjectMemory(history);
 
   // Build the prompt we will send to Ollama
   let prompt;
@@ -128,7 +130,7 @@ app.post("/chat", async (req, res) => {
             This is the current conversation history:
             ${conversationHistory}
 
-            Referenced conversation (${referencedId || "none"}):
+            Referenced conversation (${referenceId || "none"}):
             ${referencedHistory || "None"}
 
             User: ${message}
